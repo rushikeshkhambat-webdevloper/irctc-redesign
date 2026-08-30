@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account | IRCTC Redesigned</title>
+<meta name="description" content="Manage your bookings, view your travel history, and update your account settings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner container">
+    <a href="index.html" class="logo">
+      <span class="logo-icon"><i class="fa-solid fa-train"></i></span>
+      <span class="logo-text">IRCTC<span class="logo-accent">Redesigned</span></span>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="booking.html" class="nav-link">Book Ticket</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="profile.html" class="nav-link active">My Account</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="langToggle" title="Change language" aria-label="Change language">
+        <i class="fa-solid fa-language"></i><span class="lang-label">EN</span>
+      </button>
+      <button class="icon-btn" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <a href="profile.html" class="btn btn-primary btn-sm">Login</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero" style="background-image: linear-gradient(135deg, rgba(255,107,53,0.90) 0%, rgba(26,35,126,0.92) 100%), url('https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=1400');">
+  <div class="container">
+    <h1>👤 My Account</h1>
+    <p>Your trips, your details, your settings — all in one place.</p>
+  </div>
+</section>
+
+<section class="profile-section container">
+
+  <div class="profile-header-card">
+    <img class="profile-avatar" src="https://ui-avatars.com/api/?name=Aditya+Sharma&background=FF6B35&color=fff&size=100" alt="Profile avatar">
+    <div class="profile-info">
+      <h2>Aditya Sharma</h2>
+      <p><i class="fa-regular fa-envelope"></i> aditya.sharma@example.com</p>
+      <p class="member-since"><i class="fa-regular fa-calendar"></i> Member since March 2022</p>
+    </div>
+    <button class="btn btn-outline btn-sm"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+  </div>
+
+  <div class="profile-tabs" role="tablist">
+    <button class="profile-tab-btn active" data-profile-tab="dashboard">Dashboard</button>
+    <button class="profile-tab-btn" data-profile-tab="bookings">Bookings</button>
+    <button class="profile-tab-btn" data-profile-tab="settings">Settings</button>
+  </div>
+
+  <!-- Dashboard tab -->
+  <div class="profile-tab-panel active" data-profile-panel="dashboard">
+    <div class="profile-stats-grid">
+      <div class="profile-stat-card">
+        <div class="profile-stat-icon"><i class="fa-solid fa-train"></i></div>
+        <span class="profile-stat-number">27</span>
+        <span class="profile-stat-label">Total Trips</span>
+      </div>
+      <div class="profile-stat-card">
+        <div class="profile-stat-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+        <span class="profile-stat-number">₹48,650</span>
+        <span class="profile-stat-label">Total Spent</span>
+      </div>
+      <div class="profile-stat-card">
+        <div class="profile-stat-icon"><i class="fa-solid fa-ticket"></i></div>
+        <span class="profile-stat-number">2</span>
+        <span class="profile-stat-label">Active Bookings</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bookings tab -->
+  <div class="profile-tab-panel" data-profile-panel="bookings">
+    <div class="booking-history-list">
+      <div class="booking-history-card">
+        <div class="booking-history-main">
+          <h3>Rajdhani Express <span class="train-number">#12951</span></h3>
+          <p>New Delhi &rarr; Mumbai Central &nbsp;&middot;&nbsp; 12 Sep 2026</p>
+        </div>
+        <span class="status-tag status-completed">Completed</span>
+        <span class="booking-price">₹2,450</span>
+        <button class="btn btn-outline btn-sm">View Details</button>
+      </div>
+      <div class="booking-history-card">
+        <div class="booking-history-main">
+          <h3>Shatabdi Express <span class="train-number">#12002</span></h3>
+          <p>New Delhi &rarr; Bhopal &nbsp;&middot;&nbsp; 03 Oct 2026</p>
+        </div>
+        <span class="status-tag status-upcoming">Upcoming</span>
+        <span class="booking-price">₹1,120</span>
+        <button class="btn btn-outline btn-sm">View Details</button>
+      </div>
+      <div class="booking-history-card">
+        <div class="booking-history-main">
+          <h3>Duronto Express <span class="train-number">#12261</span></h3>
+          <p>Mumbai Central &rarr; New Delhi &nbsp;&middot;&nbsp; 21 Jun 2026</p>
+        </div>
+        <span class="status-tag status-cancelled">Cancelled</span>
+        <span class="booking-price">₹2,180</span>
+        <button class="btn btn-outline btn-sm">View Details</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings tab -->
+  <div class="profile-tab-panel" data-profile-panel="settings">
+    <form class="settings-form" id="settingsForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="settName">Full Name</label>
+          <input type="text" id="settName" value="Aditya Sharma">
+        </div>
+        <div class="form-group">
+          <label for="settEmail">Email</label>
+          <input type="email" id="settEmail" value="aditya.sharma@example.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="settPhone">Phone</label>
+          <input type="tel" id="settPhone" value="9876543210">
+        </div>
+        <div class="form-group">
+          <label for="settPassword">New Password</label>
+          <input type="password" id="settPassword" placeholder="Leave blank to keep current password">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+  </div>
+
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"><i class="fa-solid fa-train"></i></span>
+        <span class="logo-text">IRCTC<span class="logo-accent">Redesigned</span></span>
+      </a>
+      <p>A concept redesign of India's national rail booking platform, built for a college UI/UX competition.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="booking.html">Book Ticket</a>
+      <a href="services.html">Services</a>
+      <a href="profile.html">My Account</a>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="services.html">Food Delivery</a>
+      <a href="services.html">Hotel Booking</a>
+      <a href="services.html">Tour Packages</a>
+      <a href="services.html">PNR Status</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#">Help Center</a>
+      <a href="#">Cancellation Policy</a>
+      <a href="#">Contact Us</a>
+      <a href="#">Feedback</a>
+    </div>
+  </div>
+  <div class="footer-bottom container">
+    <p>&copy; 2026 IRCTC Redesigned — A student concept project. Not affiliated with Indian Railways.</p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Train | IRCTC Redesigned</title>
+<meta name="description" content="Search trains, pick your seat, and pay — a simple four-step booking flow.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner container">
+    <a href="index.html" class="logo">
+      <span class="logo-icon"><i class="fa-solid fa-train"></i></span>
+      <span class="logo-text">IRCTC<span class="logo-accent">Redesigned</span></span>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="booking.html" class="nav-link active">Book Ticket</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="profile.html" class="nav-link">My Account</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="langToggle" title="Change language" aria-label="Change language">
+        <i class="fa-solid fa-language"></i><span class="lang-label">EN</span>
+      </button>
+      <button class="icon-btn" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <a href="profile.html" class="btn btn-primary btn-sm">Login</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero" style="background-image: linear-gradient(135deg, rgba(255,107,53,0.90) 0%, rgba(26,35,126,0.92) 100%), url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1400');">
+  <div class="container">
+    <h1>Book Your Train</h1>
+    <p>Search, select, and confirm — all in four simple steps.</p>
+  </div>
+</section>
+
+<section class="booking-section container">
+  <div class="booking-card">
+
+    <!-- Step indicator -->
+    <div class="step-indicator" id="stepIndicator">
+      <div class="step active" data-step="1">
+        <span class="step-circle">1</span>
+        <span class="step-label">Search</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" data-step="2">
+        <span class="step-circle">2</span>
+        <span class="step-label">Select Train</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" data-step="3">
+        <span class="step-circle">3</span>
+        <span class="step-label">Passengers</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" data-step="4">
+        <span class="step-circle">4</span>
+        <span class="step-label">Payment</span>
+      </div>
+    </div>
+
+    <!-- STEP 1: Search -->
+    <div class="wizard-step active" data-step-panel="1">
+      <h2>Where are you headed?</h2>
+      <form id="bookingSearchForm">
+        <div class="form-row swap-row">
+          <div class="form-group">
+            <label for="bFrom">From</label>
+            <input type="text" id="bFrom" value="New Delhi (NDLS)" required>
+          </div>
+          <button type="button" class="swap-btn" id="bookingSwapBtn" aria-label="Swap stations"><i class="fa-solid fa-right-left"></i></button>
+          <div class="form-group">
+            <label for="bTo">To</label>
+            <input type="text" id="bTo" value="Mumbai Central (MMCT)" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bDate">Journey Date</label>
+            <input type="date" id="bDate" required>
+          </div>
+          <div class="form-group">
+            <label for="bPassengers">Passengers</label>
+            <select id="bPassengers">
+              <option>1 Passenger</option>
+              <option>2 Passengers</option>
+              <option>3 Passengers</option>
+              <option>4+ Passengers</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="bClass">Class</label>
+            <select id="bClass">
+              <option>Sleeper (SL)</option>
+              <option>AC 3 Tier (3A)</option>
+              <option>AC 2 Tier (2A)</option>
+              <option>AC First Class (1A)</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <div class="wizard-nav">
+        <span></span>
+        <button class="btn btn-primary" data-next="2"><i class="fa-solid fa-magnifying-glass"></i> Search Trains</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Select Train -->
+    <div class="wizard-step" data-step-panel="2">
+      <h2>Choose your train</h2>
+      <div class="train-list" id="trainList">
+        <label class="train-card">
+          <input type="radio" name="train" value="rajdhani">
+          <div class="train-card-main">
+            <div class="train-info">
+              <h3>Rajdhani Express <span class="train-number">#12951</span></h3>
+              <p class="train-time"><i class="fa-regular fa-clock"></i> 16:25 &rarr; 08:15 &nbsp;&middot;&nbsp; 15h 50m</p>
+            </div>
+            <div class="train-avail">
+              <span class="avail-tag avail-good">Available 42</span>
+              <span class="train-price">₹2,450</span>
+            </div>
+          </div>
+        </label>
+        <label class="train-card">
+          <input type="radio" name="train" value="duronto">
+          <div class="train-card-main">
+            <div class="train-info">
+              <h3>Duronto Express <span class="train-number">#12261</span></h3>
+              <p class="train-time"><i class="fa-regular fa-clock"></i> 23:00 &rarr; 15:40 &nbsp;&middot;&nbsp; 16h 40m</p>
+            </div>
+            <div class="train-avail">
+              <span class="avail-tag avail-limited">RAC 8</span>
+              <span class="train-price">₹2,180</span>
+            </div>
+          </div>
+        </label>
+        <label class="train-card">
+          <input type="radio" name="train" value="shatabdi">
+          <div class="train-card-main">
+            <div class="train-info">
+              <h3>August Kranti Rajdhani <span class="train-number">#12953</span></h3>
+              <p class="train-time"><i class="fa-regular fa-clock"></i> 17:15 &rarr; 09:50 &nbsp;&middot;&nbsp; 16h 35m</p>
+            </div>
+            <div class="train-avail">
+              <span class="avail-tag avail-waitlist">WL 12</span>
+              <span class="train-price">₹2,610</span>
+            </div>
+          </div>
+        </label>
+      </div>
+      <div class="wizard-nav">
+        <button class="btn btn-outline" data-prev="1"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <button class="btn btn-primary" data-next="3">Continue <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Passenger Details -->
+    <div class="wizard-step" data-step-panel="3">
+      <h2>Passenger details</h2>
+      <form id="passengerForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pName">Full Name</label>
+            <input type="text" id="pName" placeholder="As per ID proof" required>
+          </div>
+          <div class="form-group">
+            <label for="pAge">Age</label>
+            <input type="number" id="pAge" min="1" max="120" placeholder="e.g. 28" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pGender">Gender</label>
+            <select id="pGender">
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="pIdType">ID Proof</label>
+            <select id="pIdType">
+              <option>Aadhaar Card</option>
+              <option>PAN Card</option>
+              <option>Passport</option>
+              <option>Voter ID</option>
+              <option>Driving License</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pIdNumber">ID Number</label>
+            <input type="text" id="pIdNumber" placeholder="Enter ID number" required>
+          </div>
+          <div class="form-group">
+            <label for="pMobile">Mobile Number</label>
+            <input type="tel" id="pMobile" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+          </div>
+        </div>
+      </form>
+      <div class="wizard-nav">
+        <button class="btn btn-outline" data-prev="2"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <button class="btn btn-primary" data-next="4">Continue <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Payment -->
+    <div class="wizard-step" data-step-panel="4">
+      <h2>Payment</h2>
+      <form id="paymentForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="payMethod">Payment Method</label>
+            <select id="payMethod">
+              <option value="upi">UPI</option>
+              <option value="card">Credit / Debit Card</option>
+              <option value="netbanking">Net Banking</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="payDetail">UPI ID</label>
+            <input type="text" id="payDetail" placeholder="yourname@upi" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="promoCode">Promo Code (optional)</label>
+            <input type="text" id="promoCode" placeholder="Enter promo code">
+          </div>
+        </div>
+        <div class="payment-summary">
+          <div class="summary-row"><span>Ticket Fare</span><span>₹2,450</span></div>
+          <div class="summary-row"><span>Convenience Fee</span><span>₹35</span></div>
+          <div class="summary-row summary-total"><span>Total Amount</span><span>₹2,485</span></div>
+        </div>
+      </form>
+      <div class="wizard-nav">
+        <button class="btn btn-outline" data-prev="3"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <button class="btn btn-primary" id="confirmBookingBtn"><i class="fa-solid fa-lock"></i> Pay &amp; Confirm</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"><i class="fa-solid fa-train"></i></span>
+        <span class="logo-text">IRCTC<span class="logo-accent">Redesigned</span></span>
+      </a>
+      <p>A concept redesign of India's national rail booking platform, built for a college UI/UX competition.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="booking.html">Book Ticket</a>
+      <a href="services.html">Services</a>
+      <a href="profile.html">My Account</a>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="services.html">Food Delivery</a>
+      <a href="services.html">Hotel Booking</a>
+      <a href="services.html">Tour Packages</a>
+      <a href="services.html">PNR Status</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#">Help Center</a>
+      <a href="#">Cancellation Policy</a>
+      <a href="#">Contact Us</a>
+      <a href="#">Feedback</a>
+    </div>
+  </div>
+  <div class="footer-bottom container">
+    <p>&copy; 2026 IRCTC Redesigned — A student concept project. Not affiliated with Indian Railways.</p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRCTC Redesigned | Book Your Journey in Seconds</title>
+<meta name="description" content="A reimagined IRCTC experience — book trains, track journeys, order food and manage your account, all in one clean, fast interface.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner container">
+    <a href="index.html" class="logo">
+      <span class="logo-icon"><i class="fa-solid fa-train"></i></span>
+      <span class="logo-text">IRCTC<span class="logo-accent">Redesigned</span></span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="booking.html" class="nav-link">Book Ticket</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="profile.html" class="nav-link">My Account</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="langToggle" title="Change language" aria-label="Change language">
+        <i class="fa-solid fa-language"></i><span class="lang-label">EN</span>
+      </button>
+      <button class="icon-btn" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <a href="profile.html" class="btn btn-primary btn-sm">Login</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" style="background-image: linear-gradient(135deg, rgba(255,107,53,0.88) 0%, rgba(26,35,126,0.92) 100%), url('https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=1400');">
+  <div class="container hero-inner">
+    <span class="badge">🇮🇳 Government of India Initiative</span>
+    <h1 class="hero-title">Book Your Journey<br>in Seconds</h1>
+    <p class="hero-subtext">India's fastest, simplest way to book train tickets, track journeys, and travel with confidence — redesigned for real people, not just forms.</p>
+    <div class="hero-cta">
+      <a href="booking.html" class="btn btn-primary btn-lg"><i class="fa-solid fa-ticket"></i> Book Now</a>
+      <a href="#live-status" class="btn btn-outline btn-lg"><i class="fa-solid fa-location-dot"></i> Live Train Status</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEARCH CARD ===== -->
+<section class="search-section container">
+  <div class="search-card" id="live-status">
+    <div class="search-tabs" role="tablist">
+      <button class="tab-btn active" data-tab="train">
+        <i class="fa-solid fa-train-subway"></i> Train
+      </button>
+      <button class="tab-btn" data-tab="food">
+        <i class="fa-solid fa-utensils"></i> Food
+      </button>
+      <button class="tab-btn" data-tab="hotel">
+        <i class="fa-solid fa-hotel"></i> Hotel
+      </button>
+    </div>
+
+    <form class="search-form" id="searchForm" data-tab-content="train">
+      <div class="form-row swap-row">
+        <div class="form-group">
+          <label for="fromInput">From</label>
+          <input type="text" id="fromInput" placeholder="Enter city or station" value="New Delhi (NDLS)" required>
+        </div>
+        <button type="button" class="swap-btn" id="swapBtn" aria-label="Swap stations">
+          <i class="fa-solid fa-right-left"></i>
+        </button>
+        <div class="form-group">
+          <label for="toInput">To</label>
+          <input type="text" id="toInput" placeholder="Enter city or station" value="Mumbai Central (MMCT)" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="dateInput">Journey Date</label>
+          <input type="date" id="dateInput" required>
+        </div>
+        <div class="form-group">
+          <label for="passengerSelect">Passengers</label>
+          <select id="passengerSelect">
+            <option>1 Passenger</option>
+            <option>2 Passengers</option>
+            <option>3 Passengers</option>
+            <option>4+ Passengers</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="classSelect">Class</label>
+          <select id="classSelect">
+            <option>Sleeper (SL)</option>
+            <option>AC 3 Tier (3A)</option>
+            <option>AC 2 Tier (2A)</option>
+            <option>AC First Class (1A)</option>
+            <option>General</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">
+        <i class="fa-solid fa-magnifying-glass"></i> Search Trains
+      </button>
+    </form>
+
+    <div class="search-form" data-tab-content="food" hidden>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="pnrInput">PNR Number</label>
+          <input type="text" id="pnrInput" placeholder="10-digit PNR number">
+        </div>
+        <div class="form-group">
+          <label for="stationInput">Delivery Station</label>
+          <input type="text" id="stationInput" placeholder="e.g. Kanpur Central">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-utensils"></i> Find Food Options</button>
+    </div>
+
+    <div class="search-form" data-tab-content="hotel" hidden>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="hotelCityInput">City</label>
+          <input type="text" id="hotelCityInput" placeholder="Where are you staying?">
+        </div>
+        <div class="form-group">
+          <label for="checkinInput">Check-in</label>
+          <input type="date" id="checkinInput">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-hotel"></i> Search Hotels</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section class="stats-section">
+  <div class="container stats-grid">
+    <div class="stat-card">
+      <span class="stat-number" data-target="500" data-suffix="+">0</span>
+      <span class="stat-label">Daily Trains</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" data-target="12" data-suffix="M+">0</span>
+      <span class="stat-label">Happy Passengers</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" data-target="98" data-suffix="%">0</span>
+      <span class="stat-label">On-Time Performance</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" data-target="100" data-suffix="%">0</span>
+      <span class="stat-label">Digital Ticketing</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features-section container">
+  <div class="section-heading">
+    <span class="eyebrow">Why choose us</span>
+    <h2>Everything you need for a smooth journey</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+      <h3>Easy Booking</h3>
+      <p>Book a ticket in under a minute with a clean, guided flow — no confusing forms.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fa-solid fa-route"></i></div>
+      <h3>Live Tracking</h3>
+      <p>See exactly where your train is, in real time, down to the platform number.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fa-solid fa-bowl-food"></i></div>
+      <h3>Food Delivery</h3>
+      <p>Order fresh meals delivered straight to your seat at your next station stop.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fa-solid fa-qrcode"></i></div>
+      <h3>Digital Ticket</h3>
+      <p>Your ticket, ID, and PNR status — all on your phone, no printing required.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fa-solid fa-headset"></i></div>
+      <h3>24/7 Support</h3>
+      <p>Real help, any hour — live chat and phone support whenever you need it.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+      <h3>Secure Payments</h3>
+      <p>Bank-grade encryption on every transaction, with instant confirmation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"><i class="fa-solid fa-train"></i></span>
+        <span class="logo-text">IRCTC<span class="logo-accent">Redesigned</span></span>
+      </a>
+      <p>A concept redesign of India's national rail booking platform, built for a college UI/UX competition.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="booking.html">Book Ticket</a>
+      <a href="services.html">Services</a>
+      <a href="profile.html">My Account</a>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="services.html">Food Delivery</a>
+      <a href="services.html">Hotel Booking</a>
+      <a href="services.html">Tour Packages</a>
+      <a href="services.html">PNR Status</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#">Help Center</a>
+      <a href="#">Cancellation Policy</a>
+      <a href="#">Contact Us</a>
+      <a href="#">Feedback</a>
+    </div>
+  </div>
+  <div class="footer-bottom container">
+    <p>&copy; 2026 IRCTC Redesigned — A student concept project. Not affiliated with Indian Railways.</p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
