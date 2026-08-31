@@ -1,8 +1,30 @@
 /* ============================================
-   IRCTC REDESIGNED — STYLESHEET (COMPLETE FIX)
+   IRCTC REDESIGNED — STYLESHEET
+   ============================================
+   TABLE OF CONTENTS:
+   1. RESET & VARIABLES
+   2. BASE / TYPOGRAPHY
+   3. BUTTONS
+   4. HEADER / NAVIGATION
+   5. HAMBURGER MENU (HIDDEN - SHOWING ALL LINKS)
+   6. HERO SECTION
+   7. SEARCH CARD
+   8. STATS SECTION
+   9. FEATURES SECTION
+   10. SERVICES SECTION
+   11. FOOTER
+   12. BOOKING WIZARD
+   13. PROFILE PAGE
+   14. DARK MODE
+   15. ANIMATIONS
+   16. RESPONSIVE - TABLET
+   17. RESPONSIVE - MOBILE (FIXED - HORIZONTAL NAV)
+   18. RESPONSIVE - SMALL MOBILE
    ============================================ */
 
-/* 1. RESET & VARIABLES */
+/* ============================================
+   1. RESET & VARIABLES
+   ============================================ */
 *,
 *::before,
 *::after {
@@ -21,16 +43,21 @@ body {
 }
 
 :root {
+    /* Brand Colors */
     --primary: #FF6B35;
     --primary-dark: #E2542A;
     --secondary: #1A237E;
     --secondary-light: #2C3A9E;
     --success: #4CAF50;
+    
+    /* Backgrounds & Text */
     --bg: #FFFFFF;
     --bg-alt: #F5F5F5;
     --text: #1A1A2E;
     --text-muted: #666;
     --border: #E5E5EA;
+    
+    /* Gradients & Effects */
     --gradient: linear-gradient(135deg, #FF6B35 0%, #1A237E 100%);
     --radius-sm: 8px;
     --radius-md: 14px;
@@ -38,11 +65,15 @@ body {
     --shadow-sm: 0 2px 8px rgba(26, 26, 46, 0.06);
     --shadow-md: 0 8px 24px rgba(26, 26, 46, 0.10);
     --shadow-lg: 0 20px 48px rgba(26, 26, 46, 0.16);
+    
+    /* Layout */
     --header-height: 76px;
     --transition: 0.25s ease;
 }
 
-/* 2. BASE / TYPOGRAPHY */
+/* ============================================
+   2. BASE / TYPOGRAPHY
+   ============================================ */
 body {
     font-family: 'Poppins', sans-serif;
     color: var(--text);
@@ -56,10 +87,12 @@ body {
     margin: 0;
 }
 
+/* Force all elements to respect max width */
 * {
     max-width: 100%;
 }
 
+/* Container - Centers content with max width */
 .container,
 .header-inner,
 .hero-inner,
@@ -72,15 +105,8 @@ body {
     box-sizing: border-box;
 }
 
-h1,
-h2,
-h3,
-h4,
-p,
-a,
-span,
-li,
-div {
+/* Prevent text overflow */
+h1, h2, h3, h4, p, a, span, li, div {
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -98,7 +124,9 @@ a {
     text-decoration: none;
 }
 
-/* 3. BUTTONS */
+/* ============================================
+   3. BUTTONS
+   ============================================ */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -119,6 +147,7 @@ a {
     transform: translateY(-2px);
 }
 
+/* Primary Button - Orange */
 .btn-primary {
     background: var(--primary);
     color: #fff;
@@ -130,6 +159,7 @@ a {
     box-shadow: 0 10px 22px rgba(255, 107, 53, 0.45);
 }
 
+/* Outline Button - Transparent with border */
 .btn-outline {
     background: transparent;
     border-color: currentColor;
@@ -141,6 +171,7 @@ a {
     color: #fff;
 }
 
+/* Hero variant - White outline on dark background */
 .hero .btn-outline {
     color: #fff;
     border-color: rgba(255, 255, 255, 0.7);
@@ -151,6 +182,7 @@ a {
     color: var(--secondary);
 }
 
+/* Button Sizes */
 .btn-lg {
     padding: 16px 32px;
     font-size: 1.05rem;
@@ -166,7 +198,9 @@ a {
     justify-content: center;
 }
 
-/* 4. HEADER / NAVIGATION */
+/* ============================================
+   4. HEADER / NAVIGATION
+   ============================================ */
 .site-header {
     position: sticky;
     top: 0;
@@ -195,6 +229,7 @@ a {
     flex-wrap: nowrap;
 }
 
+/* Logo Styling */
 .logo {
     display: flex;
     align-items: center;
@@ -233,6 +268,7 @@ a {
     white-space: nowrap;
 }
 
+/* Navigation Links - Desktop */
 .main-nav {
     display: flex;
     gap: 8px;
@@ -252,6 +288,7 @@ a {
     font-size: clamp(0.7rem, 1.2vw, 0.95rem);
 }
 
+/* Underline animation on hover */
 .nav-link::after {
     content: '';
     position: absolute;
@@ -291,6 +328,7 @@ a {
     transform: none;
 }
 
+/* Header Right Actions */
 .header-actions {
     display: flex;
     align-items: center;
@@ -318,7 +356,10 @@ a {
     background: var(--border);
 }
 
-/* 5. HAMBURGER MENU - HIDDEN ON ALL SCREENS (Alternative: Show all links) */
+/* ============================================
+   5. HAMBURGER MENU - HIDDEN (Showing all links)
+   ============================================ */
+/* Hamburger is hidden on all screens - we show all nav links directly */
 .hamburger {
     display: none !important;
 }
@@ -327,7 +368,9 @@ a {
     display: none !important;
 }
 
-/* 6. HERO SECTION */
+/* ============================================
+   6. HERO SECTION
+   ============================================ */
 .hero {
     background-size: cover;
     background-position: center;
@@ -345,6 +388,7 @@ a {
     width: 100%;
 }
 
+/* Badge - Government of India tag */
 .badge {
     display: inline-block;
     background: rgba(255, 255, 255, 0.18);
@@ -387,6 +431,7 @@ a {
     flex: 0 1 auto;
 }
 
+/* Inner Page Hero */
 .page-hero {
     background-size: cover;
     background-position: center;
@@ -407,7 +452,9 @@ a {
     font-size: clamp(0.9rem, 1.5vw, 1.05rem);
 }
 
-/* 7. SEARCH CARD */
+/* ============================================
+   7. SEARCH CARD
+   ============================================ */
 .search-section {
     margin-top: -80px;
     position: relative;
@@ -430,6 +477,7 @@ a {
     overflow: hidden;
 }
 
+/* Search Tabs - Train, Food, Hotel */
 .search-tabs {
     display: flex;
     gap: 4px;
@@ -464,6 +512,7 @@ a {
     box-shadow: var(--shadow-sm);
 }
 
+/* Form Layout */
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -513,6 +562,7 @@ a {
     transform: scale(1.01);
 }
 
+/* Swap Button - Exchange From/To */
 .swap-btn {
     width: 46px;
     height: 46px;
@@ -536,7 +586,9 @@ a {
     transform: rotate(180deg);
 }
 
-/* 8. STATS */
+/* ============================================
+   8. STATS SECTION
+   ============================================ */
 .stats-section {
     background: var(--bg-alt);
     padding: 56px 0;
@@ -581,7 +633,9 @@ a {
     font-size: clamp(0.75rem, 1.2vw, 0.95rem);
 }
 
-/* 9. FEATURES */
+/* ============================================
+   9. FEATURES SECTION
+   ============================================ */
 .features-section {
     padding: 88px 0;
     width: 100%;
@@ -640,6 +694,7 @@ a {
     overflow: hidden;
 }
 
+/* Gradient border glow on hover */
 .feature-card::before {
     content: '';
     position: absolute;
@@ -689,7 +744,9 @@ a {
     line-height: 1.5;
 }
 
-/* 10. SERVICES */
+/* ============================================
+   10. SERVICES SECTION
+   ============================================ */
 .services-grid-section {
     padding: 64px 0 96px;
     width: 100%;
@@ -742,6 +799,7 @@ a {
     opacity: 1;
 }
 
+/* Service Badges - Popular, New, Most Used */
 .service-badge {
     position: absolute;
     top: 20px;
@@ -806,7 +864,9 @@ a {
     text-decoration: underline;
 }
 
-/* 11. FOOTER */
+/* ============================================
+   11. FOOTER
+   ============================================ */
 .site-footer {
     background: var(--secondary);
     color: rgba(255, 255, 255, 0.85);
@@ -893,7 +953,9 @@ a {
     width: 100%;
 }
 
-/* 12. BOOKING WIZARD */
+/* ============================================
+   12. BOOKING WIZARD
+   ============================================ */
 .booking-section {
     padding: 56px 0 88px;
     width: 100%;
@@ -990,7 +1052,9 @@ a {
     flex-wrap: wrap;
 }
 
-/* 13. PROFILE */
+/* ============================================
+   13. PROFILE PAGE
+   ============================================ */
 .profile-section {
     padding: 56px 0 96px;
     max-width: 900px;
@@ -1116,7 +1180,9 @@ a {
     font-size: clamp(0.8rem, 1vw, 0.88rem);
 }
 
-/* 14. DARK MODE */
+/* ============================================
+   14. DARK MODE
+   ============================================ */
 body.dark-mode {
     --bg: #12121F;
     --bg-alt: #1B1B2E;
@@ -1155,6 +1221,7 @@ body.dark-mode .icon-btn {
     color: var(--text);
 }
 
+/* Sun icon for dark mode toggle */
 body.dark-mode #themeToggle i::before {
     content: "\f185";
 }
@@ -1170,7 +1237,9 @@ body.dark-mode .service-card:hover {
     box-shadow: 0 20px 60px rgba(255, 107, 53, 0.1);
 }
 
-/* 15. ANIMATIONS */
+/* ============================================
+   15. ANIMATIONS
+   ============================================ */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -1183,8 +1252,7 @@ body.dark-mode .service-card:hover {
 }
 
 @keyframes float {
-    0%,
-    100% {
+    0%, 100% {
         transform: translateY(0);
     }
     50% {
@@ -1193,8 +1261,7 @@ body.dark-mode .service-card:hover {
 }
 
 @keyframes gradientShift {
-    0%,
-    100% {
+    0%, 100% {
         background-position: 0% 50%;
     }
     50% {
@@ -1222,14 +1289,35 @@ body.dark-mode .service-card:hover {
 }
 
 /* ============================================
-   17. RESPONSIVE - MOBILE (UP TO 767px) - SHOW ALL NAV LINKS
+   17. RESPONSIVE - MOBILE (UP TO 767px)
    ============================================ */
 @media (max-width: 767px) {
-    /* -------- SHOW ALL NAV LINKS (No Hamburger) -------- */
-    .hamburger {
-        display: none !important;
+    /* -------- HEADER: STACK LOGO ABOVE NAV -------- */
+    .header-inner {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+        padding: 8px 12px !important;
+        flex-wrap: wrap !important;
     }
 
+    /* -------- LOGO SIZE -------- */
+    .logo {
+        font-size: 0.9rem !important;
+        flex-shrink: 0 !important;
+    }
+    .logo-icon {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 0.8rem !important;
+    }
+    .logo-text {
+        font-size: 0.8rem !important;
+    }
+
+    /* -------- NAV LINKS - HORIZONTAL ROW BELOW LOGO -------- */
     .main-nav {
         display: flex !important;
         flex-direction: row !important;
@@ -1238,9 +1326,9 @@ body.dark-mode .service-card:hover {
         align-items: center !important;
         gap: 4px !important;
         position: relative !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
         background: transparent !important;
         box-shadow: none !important;
         transform: none !important;
@@ -1250,10 +1338,13 @@ body.dark-mode .service-card:hover {
         padding: 0 !important;
         z-index: auto !important;
         border-radius: 0 !important;
-        flex: 1 !important;
+        flex: none !important;
+        width: 100% !important;
+        justify-content: center !important;
     }
 
     .nav-link {
+        display: inline-block !important;
         width: auto !important;
         padding: 4px 8px !important;
         text-align: center !important;
@@ -1263,6 +1354,7 @@ body.dark-mode .service-card:hover {
         color: var(--text-muted) !important;
         background: transparent !important;
         white-space: nowrap !important;
+        border: none !important;
     }
 
     .nav-link:hover {
@@ -1278,27 +1370,21 @@ body.dark-mode .service-card:hover {
         display: none !important;
     }
 
-    /* -------- HEADER ADJUSTMENTS -------- */
-    .header-inner {
-        flex-wrap: wrap !important;
-        gap: 6px !important;
-        padding: 8px 12px !important;
+    /* -------- HIDE HAMBURGER -------- */
+    .hamburger {
+        display: none !important;
     }
 
-    .logo {
-        font-size: 0.8rem !important;
-    }
-    .logo-icon {
-        width: 28px !important;
-        height: 28px !important;
-        font-size: 0.7rem !important;
-    }
-    .logo-text {
-        font-size: 0.7rem !important;
-    }
-
+    /* -------- HEADER ACTIONS - RIGHT SIDE -------- */
     .header-actions {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
         gap: 4px !important;
+        position: absolute !important;
+        right: 12px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
     }
     .header-actions .btn-sm {
         display: none !important;
@@ -1314,7 +1400,7 @@ body.dark-mode .service-card:hover {
 
     /* -------- HERO -------- */
     .hero {
-        padding: 80px 0 60px !important;
+        padding: 100px 0 60px !important;
         min-height: auto !important;
     }
     .hero-title {
