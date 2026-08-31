@@ -1,324 +1,389 @@
-// js for the project 
-/* ============================================
-   IRCTC REDESIGNED — MAIN JS
-   Works across index.html, booking.html,
-   services.html and profile.html.
-   Every selector is guarded with a null-check
-   so this one file can be shared by all pages.
-   ============================================ */
+// ============================================
+// IRCTC REDESIGNED — MAIN JS
+// ============================================
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
 
-  /* ---------- 1. HAMBURGER MENU ---------- */
-  const hamburger = document.getElementById('hamburger');
-  const mainNav = document.getElementById('mainNav');
+    // ============================================
+    // 1. HAMBURGER MENU - MOBILE NAVIGATION
+    // ============================================
 
-  if (hamburger && mainNav) {
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mainNav.classList.toggle('open');
-    });
+    const hamburger = document.getElementById('hamburger');
+    const mainNav = document.getElementById('mainNav');
 
-    // Close menu when clicking outside of it
-    document.addEventListener('click', (e) => {
-      const isClickInside = mainNav.contains(e.target) || hamburger.contains(e.target);
-      if (!isClickInside && mainNav.classList.contains('open')) {
-        mainNav.classList.remove('open');
-        hamburger.classList.remove('open');
-      }
-    });
+    if (hamburger && mainNav) {
+        console.log('✅ Hamburger menu initialized');
 
-    // Close menu after selecting a link (mobile)
-    mainNav.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        mainNav.classList.remove('open');
-        hamburger.classList.remove('open');
-      });
-    });
-  }
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            hamburger.classList.toggle('open');
+            mainNav.classList.toggle('open');
+        });
 
-  /* ---------- 2. NAVBAR SCROLL EFFECT ---------- */
-  const siteHeader = document.getElementById('siteHeader');
-  if (siteHeader) {
-    window.addEventListener('scroll', () => {
-      siteHeader.classList.toggle('scrolled', window.scrollY > 10);
-    });
-  }
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (mainNav.classList.contains('open')) {
+                const isClickInside = mainNav.contains(e.target) || hamburger.contains(e.target);
+                if (!isClickInside) {
+                    mainNav.classList.remove('open');
+                    hamburger.classList.remove('open');
+                }
+            }
+        });
 
-  /* ---------- 3. DARK MODE TOGGLE ---------- */
-  const themeToggle = document.getElementById('themeToggle');
-  if (themeToggle) {
-    // Restore saved preference
-    if (localStorage.getItem('irctc-theme') === 'dark') {
-      document.body.classList.add('dark-mode');
-      themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+        // Close menu after selecting a link (mobile)
+        mainNav.querySelectorAll('.nav-link').forEach(function(link) {
+            link.addEventListener('click', function() {
+                mainNav.classList.remove('open');
+                hamburger.classList.remove('open');
+            });
+        });
     }
 
-    themeToggle.addEventListener('click', () => {
-      const isDark = document.body.classList.toggle('dark-mode');
-      const icon = themeToggle.querySelector('i');
-      icon.classList.toggle('fa-moon', !isDark);
-      icon.classList.toggle('fa-sun', isDark);
-      localStorage.setItem('irctc-theme', isDark ? 'dark' : 'light');
-    });
-  }
+    // ============================================
+    // 2. NAVBAR SCROLL EFFECT
+    // ============================================
 
-  /* ---------- 4. LANGUAGE TOGGLE (mock) ---------- */
-  const langToggle = document.getElementById('langToggle');
-  if (langToggle) {
-    const languages = ['EN', 'हिं'];
-    let langIndex = 0;
-    langToggle.addEventListener('click', () => {
-      langIndex = (langIndex + 1) % languages.length;
-      langToggle.querySelector('.lang-label').textContent = languages[langIndex];
-    });
-  }
+    const siteHeader = document.getElementById('siteHeader');
+    if (siteHeader) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 10) {
+                siteHeader.classList.add('scrolled');
+            } else {
+                siteHeader.classList.remove('scrolled');
+            }
+        });
+    }
 
-  /* ---------- 5. STAT COUNTER ANIMATION ---------- */
-  const statNumbers = document.querySelectorAll('.stat-number');
-  if (statNumbers.length) {
-    const animateCounter = (el) => {
-      const target = parseInt(el.dataset.target, 10);
-      const suffix = el.dataset.suffix || '';
-      const duration = 1400;
-      const startTime = performance.now();
+    // ============================================
+    // 3. DARK MODE TOGGLE
+    // ============================================
 
-      const step = (now) => {
-        const progress = Math.min((now - startTime) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-        const value = Math.floor(eased * target);
-        el.textContent = value + suffix;
-        if (progress < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        // Restore saved preference
+        if (localStorage.getItem('irctc-theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            var icon = themeToggle.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+        }
+
+        themeToggle.addEventListener('click', function() {
+            var isDark = document.body.classList.toggle('dark-mode');
+            var icon = this.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-moon', !isDark);
+                icon.classList.toggle('fa-sun', isDark);
+            }
+            localStorage.setItem('irctc-theme', isDark ? 'dark' : 'light');
+        });
+    }
+
+    // ============================================
+    // 4. LANGUAGE TOGGLE (Mock)
+    // ============================================
+
+    var langToggle = document.getElementById('langToggle');
+    if (langToggle) {
+        var languages = ['EN', 'हिं'];
+        var langIndex = 0;
+        langToggle.addEventListener('click', function() {
+            langIndex = (langIndex + 1) % languages.length;
+            var label = this.querySelector('.lang-label');
+            if (label) {
+                label.textContent = languages[langIndex];
+            }
+        });
+    }
+
+    // ============================================
+    // 5. STAT COUNTER ANIMATION
+    // ============================================
+
+    var statNumbers = document.querySelectorAll('.stat-number');
+    if (statNumbers.length > 0) {
+        var animateCounter = function(el) {
+            var target = parseInt(el.dataset.target, 10);
+            var suffix = el.dataset.suffix || '';
+            var duration = 1400;
+            var startTime = performance.now();
+
+            var step = function(now) {
+                var progress = Math.min((now - startTime) / duration, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                var value = Math.floor(eased * target);
+                el.textContent = value + suffix;
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                }
+            };
+            requestAnimationFrame(step);
+        };
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statNumbers.forEach(function(el) {
+            observer.observe(el);
+        });
+    }
+
+    // ============================================
+    // 6. SEARCH TABS (Home page)
+    // ============================================
+
+    var tabButtons = document.querySelectorAll('.tab-btn');
+    if (tabButtons.length > 0) {
+        tabButtons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                tabButtons.forEach(function(b) {
+                    b.classList.remove('active');
+                });
+                btn.classList.add('active');
+
+                var targetTab = btn.dataset.tab;
+                document.querySelectorAll('[data-tab-content]').forEach(function(panel) {
+                    panel.hidden = panel.dataset.tabContent !== targetTab;
+                });
+            });
+        });
+    }
+
+    // ============================================
+    // 7. SWAP FROM/TO BUTTONS
+    // ============================================
+
+    var setupSwap = function(btnId, fromId, toId) {
+        var btn = document.getElementById(btnId);
+        var fromInput = document.getElementById(fromId);
+        var toInput = document.getElementById(toId);
+        if (btn && fromInput && toInput) {
+            btn.addEventListener('click', function() {
+                var temp = fromInput.value;
+                fromInput.value = toInput.value;
+                toInput.value = temp;
+            });
+        }
     };
+    setupSwap('swapBtn', 'fromInput', 'toInput');
+    setupSwap('bookingSwapBtn', 'bFrom', 'bTo');
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCounter(entry.target);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
+    // ============================================
+    // 8. HOME SEARCH FORM SUBMIT
+    // ============================================
 
-    statNumbers.forEach(el => observer.observe(el));
-  }
-
-  /* ---------- 6. SEARCH TABS (Home page) ---------- */
-  const tabButtons = document.querySelectorAll('.tab-btn');
-  if (tabButtons.length) {
-    tabButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        tabButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const targetTab = btn.dataset.tab;
-        document.querySelectorAll('[data-tab-content]').forEach(panel => {
-          panel.hidden = panel.dataset.tabContent !== targetTab;
+    var searchForm = document.getElementById('searchForm');
+    if (searchForm) {
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            window.location.href = 'booking.html';
         });
-      });
-    });
-  }
-
-  /* ---------- 7. SWAP FROM/TO BUTTONS ---------- */
-  const setupSwap = (btnId, fromId, toId) => {
-    const btn = document.getElementById(btnId);
-    const fromInput = document.getElementById(fromId);
-    const toInput = document.getElementById(toId);
-    if (btn && fromInput && toInput) {
-      btn.addEventListener('click', () => {
-        const temp = fromInput.value;
-        fromInput.value = toInput.value;
-        toInput.value = temp;
-      });
     }
-  };
-  setupSwap('swapBtn', 'fromInput', 'toInput');
-  setupSwap('bookingSwapBtn', 'bFrom', 'bTo');
 
-  /* ---------- 8. HOME SEARCH FORM SUBMIT ---------- */
-  const searchForm = document.getElementById('searchForm');
-  if (searchForm) {
-    searchForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      window.location.href = 'booking.html';
-    });
-  }
+    // ============================================
+    // 9. BOOKING WIZARD
+    // ============================================
 
-  /* ---------- 9. BOOKING WIZARD ---------- */
-  const wizardSteps = document.querySelectorAll('.wizard-step');
-  const stepIndicators = document.querySelectorAll('.step-indicator .step');
+    var wizardSteps = document.querySelectorAll('.wizard-step');
+    var stepIndicators = document.querySelectorAll('.step-indicator .step');
 
-  if (wizardSteps.length) {
-    const goToStep = (stepNumber) => {
-      wizardSteps.forEach(step => {
-        step.classList.toggle('active', step.dataset.stepPanel === String(stepNumber));
-      });
-      stepIndicators.forEach(ind => {
-        const indStep = parseInt(ind.dataset.step, 10);
-        ind.classList.toggle('active', indStep === stepNumber);
-        ind.classList.toggle('completed', indStep < stepNumber);
-      });
-      // Scroll booking card into view smoothly
-      const bookingCard = document.querySelector('.booking-card');
-      if (bookingCard) bookingCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+    if (wizardSteps.length > 0) {
+        var goToStep = function(stepNumber) {
+            wizardSteps.forEach(function(step) {
+                step.classList.toggle('active', step.dataset.stepPanel === String(stepNumber));
+            });
+            stepIndicators.forEach(function(ind) {
+                var indStep = parseInt(ind.dataset.step, 10);
+                ind.classList.toggle('active', indStep === stepNumber);
+                ind.classList.toggle('completed', indStep < stepNumber);
+            });
+            var bookingCard = document.querySelector('.booking-card');
+            if (bookingCard) {
+                bookingCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        };
 
-    document.querySelectorAll('[data-next]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Basic validation: check required inputs in the current visible step
-        const currentStep = btn.closest('.wizard-step');
-        const requiredFields = currentStep.querySelectorAll('input[required], select[required]');
-        let valid = true;
-        requiredFields.forEach(field => {
-          if (!field.value.trim()) {
-            valid = false;
-            field.style.borderColor = '#E53935';
-          } else {
-            field.style.borderColor = '';
-          }
+        document.querySelectorAll('[data-next]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var currentStep = btn.closest('.wizard-step');
+                var requiredFields = currentStep.querySelectorAll('input[required], select[required]');
+                var valid = true;
+                requiredFields.forEach(function(field) {
+                    if (!field.value.trim()) {
+                        valid = false;
+                        field.style.borderColor = '#E53935';
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                });
+
+                if (currentStep.dataset.stepPanel === '2') {
+                    var selected = currentStep.querySelector('input[name="train"]:checked');
+                    if (!selected) {
+                        valid = false;
+                        alert('Please select a train to continue.');
+                    }
+                }
+
+                if (valid) {
+                    goToStep(parseInt(btn.dataset.next, 10));
+                }
+            });
         });
 
-        // For the train-selection step, require a radio to be checked
-        if (currentStep.dataset.stepPanel === '2') {
-          const selected = currentStep.querySelector('input[name="train"]:checked');
-          if (!selected) {
-            valid = false;
-            alert('Please select a train to continue.');
-          }
-        }
+        document.querySelectorAll('[data-prev]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                goToStep(parseInt(btn.dataset.prev, 10));
+            });
+        });
 
-        if (valid) {
-          goToStep(parseInt(btn.dataset.next, 10));
+        var confirmBtn = document.getElementById('confirmBookingBtn');
+        if (confirmBtn) {
+            confirmBtn.addEventListener('click', function() {
+                var payDetail = document.getElementById('payDetail');
+                if (payDetail && !payDetail.value.trim()) {
+                    payDetail.style.borderColor = '#E53935';
+                    return;
+                }
+                alert('🎉 Booking confirmed! Your e-ticket has been sent to your registered mobile number and email.');
+                window.location.href = 'profile.html';
+            });
         }
-      });
-    });
-
-    document.querySelectorAll('[data-prev]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        goToStep(parseInt(btn.dataset.prev, 10));
-      });
-    });
-
-    // Confirm booking button (final step)
-    const confirmBtn = document.getElementById('confirmBookingBtn');
-    if (confirmBtn) {
-      confirmBtn.addEventListener('click', () => {
-        const payDetail = document.getElementById('payDetail');
-        if (payDetail && !payDetail.value.trim()) {
-          payDetail.style.borderColor = '#E53935';
-          return;
-        }
-        alert('🎉 Booking confirmed! Your e-ticket has been sent to your registered mobile number and email.');
-        window.location.href = 'profile.html';
-      });
     }
-  }
 
-  /* ---------- 10. TRAIN CARD SELECTION HIGHLIGHT ---------- */
-  const trainRadios = document.querySelectorAll('input[name="train"]');
-  if (trainRadios.length) {
-    trainRadios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        document.querySelectorAll('.train-card').forEach(card => card.classList.remove('selected'));
-        radio.closest('.train-card').classList.add('selected');
-      });
-    });
-  }
+    // ============================================
+    // 10. TRAIN CARD SELECTION HIGHLIGHT
+    // ============================================
 
-  /* ---------- 11. PAYMENT METHOD FIELD SWITCH ---------- */
-  const payMethod = document.getElementById('payMethod');
-  const payDetail = document.getElementById('payDetail');
-  if (payMethod && payDetail) {
-    payMethod.addEventListener('change', () => {
-      const placeholders = {
-        upi: { label: 'UPI ID', placeholder: 'yourname@upi' },
-        card: { label: 'Card Number', placeholder: '1234 5678 9012 3456' },
-        netbanking: { label: 'Bank Name', placeholder: 'e.g. State Bank of India' }
-      };
-      const config = placeholders[payMethod.value];
-      const label = document.querySelector('label[for="payDetail"]');
-      if (label) label.textContent = config.label;
-      payDetail.placeholder = config.placeholder;
-    });
-  }
-
-  /* ---------- 12. PROFILE TABS ---------- */
-  const profileTabBtns = document.querySelectorAll('.profile-tab-btn');
-  if (profileTabBtns.length) {
-    profileTabBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        profileTabBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const target = btn.dataset.profileTab;
-        document.querySelectorAll('.profile-tab-panel').forEach(panel => {
-          panel.classList.toggle('active', panel.dataset.profilePanel === target);
+    var trainRadios = document.querySelectorAll('input[name="train"]');
+    if (trainRadios.length > 0) {
+        trainRadios.forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.train-card').forEach(function(card) {
+                    card.classList.remove('selected');
+                });
+                radio.closest('.train-card').classList.add('selected');
+            });
         });
-      });
+    }
+
+    // ============================================
+    // 11. PAYMENT METHOD FIELD SWITCH
+    // ============================================
+
+    var payMethod = document.getElementById('payMethod');
+    var payDetail = document.getElementById('payDetail');
+    if (payMethod && payDetail) {
+        payMethod.addEventListener('change', function() {
+            var placeholders = {
+                upi: { label: 'UPI ID', placeholder: 'yourname@upi' },
+                card: { label: 'Card Number', placeholder: '1234 5678 9012 3456' },
+                netbanking: { label: 'Bank Name', placeholder: 'e.g. State Bank of India' }
+            };
+            var config = placeholders[payMethod.value];
+            var label = document.querySelector('label[for="payDetail"]');
+            if (label) {
+                label.textContent = config.label;
+            }
+            payDetail.placeholder = config.placeholder;
+        });
+    }
+
+    // ============================================
+    // 12. PROFILE TABS
+    // ============================================
+
+    var profileTabBtns = document.querySelectorAll('.profile-tab-btn');
+    if (profileTabBtns.length > 0) {
+        profileTabBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                profileTabBtns.forEach(function(b) {
+                    b.classList.remove('active');
+                });
+                btn.classList.add('active');
+
+                var target = btn.dataset.profileTab;
+                document.querySelectorAll('.profile-tab-panel').forEach(function(panel) {
+                    panel.classList.toggle('active', panel.dataset.profilePanel === target);
+                });
+            });
+        });
+    }
+
+    // ============================================
+    // 13. SETTINGS FORM SUBMIT
+    // ============================================
+
+    var settingsForm = document.getElementById('settingsForm');
+    if (settingsForm) {
+        settingsForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('✅ Your account settings have been saved.');
+        });
+    }
+
+    // ============================================
+    // 14. SMOOTH SCROLL FOR ANCHOR LINKS
+    // ============================================
+
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+            var targetId = this.getAttribute('href');
+            if (targetId.length > 1) {
+                var targetEl = document.querySelector(targetId);
+                if (targetEl) {
+                    e.preventDefault();
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
     });
-  }
 
-  /* ---------- 13. SETTINGS FORM SUBMIT ---------- */
-  const settingsForm = document.getElementById('settingsForm');
-  if (settingsForm) {
-    settingsForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('✅ Your account settings have been saved.');
-    });
-  }
+    // ============================================
+    // 15. FADE-IN ON SCROLL FOR CARDS
+    // ============================================
 
-  /* ---------- 14. SMOOTH SCROLL FOR ANCHOR LINKS ---------- */
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href');
-      if (targetId.length > 1) {
-        const targetEl = document.querySelector(targetId);
-        if (targetEl) {
-          e.preventDefault();
-          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
-    });
-  });
+    var fadeTargets = document.querySelectorAll('.feature-card, .service-card, .train-card, .profile-stat-card');
+    if (fadeTargets.length > 0) {
+        var fadeObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        fadeTargets.forEach(function(el) {
+            fadeObserver.observe(el);
+        });
+    }
 
-  /* ---------- 15. FADE-IN ON SCROLL FOR CARDS ---------- */
-  const fadeTargets = document.querySelectorAll('.feature-card, .service-card, .train-card, .profile-stat-card');
-  if (fadeTargets.length) {
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in-up');
-          fadeObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    fadeTargets.forEach(el => fadeObserver.observe(el));
-  }
+}); // END DOMContentLoaded
 
-});
 // ============================================
 // LANGUAGE TOGGLE FUNCTIONALITY
 // ============================================
 
-// Language translations
-const translations = {
+var translations = {
     en: {
-        // Navigation
         home: "Home",
         bookTicket: "Book Ticket",
         services: "Services",
         myAccount: "My Account",
-        
-        // Hero
         badge: "🇮🇳 Government of India Initiative",
         heroTitle: "Book Your Journey in Seconds",
         heroSubtext: "India's fastest, simplest way to book train tickets, track journeys, and travel with confidence — redesigned for real people, not just forms.",
         bookNow: "Book Now",
         liveStatus: "Live Train Status",
-        
-        // Search
         train: "Train",
         food: "Food",
         hotel: "Hotel",
@@ -330,14 +395,10 @@ const translations = {
         searchTrains: "Search Trains",
         findFood: "Find Food Options",
         searchHotels: "Search Hotels",
-        
-        // Stats
         dailyTrains: "Daily Trains",
         happyPassengers: "Happy Passengers",
         onTime: "On-Time Performance",
         digitalTicketing: "Digital Ticketing",
-        
-        // Features
         whyChoose: "Why choose us",
         featuresHeading: "Everything you need for a smooth journey",
         easyBooking: "Easy Booking",
@@ -352,8 +413,6 @@ const translations = {
         supportDesc: "Real help, any hour — live chat and phone support whenever you need it.",
         securePayments: "Secure Payments",
         securePaymentsDesc: "Bank-grade encryption on every transaction, with instant confirmation.",
-        
-        // Footer
         quickLinks: "Quick Links",
         servicesFooter: "Services",
         supportFooter: "Support",
@@ -364,22 +423,16 @@ const translations = {
         footerText: "A concept redesign of India's national rail booking platform, built for a college UI/UX competition.",
         copyright: "© 2026 IRCTC Redesigned — A student concept project. Not affiliated with Indian Railways."
     },
-    
     hi: {
-        // Navigation
         home: "होम",
         bookTicket: "टिकट बुक करें",
         services: "सेवाएं",
         myAccount: "मेरा खाता",
-        
-        // Hero
         badge: "🇮🇳 भारत सरकार की पहल",
         heroTitle: "अपनी यात्रा बुक करें",
         heroSubtext: "ट्रेन टिकट बुक करने, यात्रा ट्रैक करने और आत्मविश्वास के साथ यात्रा करने का भारत का सबसे तेज़, सरल तरीका — सिर्फ फॉर्म के लिए नहीं, बल्कि वास्तविक लोगों के लिए फिर से डिज़ाइन किया गया।",
         bookNow: "अभी बुक करें",
         liveStatus: "लाइव ट्रेन स्टेटस",
-        
-        // Search
         train: "ट्रेन",
         food: "खाना",
         hotel: "होटल",
@@ -391,14 +444,10 @@ const translations = {
         searchTrains: "ट्रेन खोजें",
         findFood: "खाने के विकल्प खोजें",
         searchHotels: "होटल खोजें",
-        
-        // Stats
         dailyTrains: "दैनिक ट्रेनें",
         happyPassengers: "खुश यात्री",
         onTime: "समय पर प्रदर्शन",
         digitalTicketing: "डिजिटल टिकटिंग",
-        
-        // Features
         whyChoose: "हमें क्यों चुनें",
         featuresHeading: "एक सुगम यात्रा के लिए सब कुछ",
         easyBooking: "आसान बुकिंग",
@@ -413,8 +462,6 @@ const translations = {
         supportDesc: "किसी भी समय वास्तविक सहायता — जब भी आपको आवश्यकता हो, लाइव चैट और फोन सपोर्ट।",
         securePayments: "सुरक्षित भुगतान",
         securePaymentsDesc: "हर लेनदेन पर बैंक-ग्रेड एन्क्रिप्शन, त्वरित पुष्टि के साथ।",
-        
-        // Footer
         quickLinks: "त्वरित लिंक",
         servicesFooter: "सेवाएं",
         supportFooter: "सहायता",
@@ -427,120 +474,108 @@ const translations = {
     }
 };
 
-// Current language state
-let currentLanguage = 'en';
+var currentLanguage = 'en';
 
-// Function to update all text on page
 function updateLanguage(lang) {
     currentLanguage = lang;
-    const t = translations[lang];
-    
-    // Update navigation
-    document.querySelectorAll('.nav-link').forEach(link => {
-        const text = link.textContent.trim();
+    var t = translations[lang];
+
+    document.querySelectorAll('.nav-link').forEach(function(link) {
+        var text = link.textContent.trim();
         if (text === 'Home' || text === 'होम') link.textContent = t.home;
         else if (text === 'Book Ticket' || text === 'टिकट बुक करें') link.textContent = t.bookTicket;
         else if (text === 'Services' || text === 'सेवाएं') link.textContent = t.services;
         else if (text === 'My Account' || text === 'मेरा खाता') link.textContent = t.myAccount;
     });
-    
-    // Update hero
-    const badge = document.querySelector('.badge');
+
+    var badge = document.querySelector('.badge');
     if (badge) badge.textContent = t.badge;
-    
-    const heroTitle = document.querySelector('.hero-title');
+
+    var heroTitle = document.querySelector('.hero-title');
     if (heroTitle) heroTitle.textContent = t.heroTitle;
-    
-    const heroSubtext = document.querySelector('.hero-subtext');
+
+    var heroSubtext = document.querySelector('.hero-subtext');
     if (heroSubtext) heroSubtext.textContent = t.heroSubtext;
-    
-    // Update hero buttons
-    const heroBtns = document.querySelectorAll('.hero-cta .btn');
-    heroBtns.forEach(btn => {
-        const text = btn.textContent.trim();
+
+    var heroBtns = document.querySelectorAll('.hero-cta .btn');
+    heroBtns.forEach(function(btn) {
+        var text = btn.textContent.trim();
         if (text.includes('Book Now') || text.includes('अभी बुक करें')) {
-            btn.innerHTML = `<i class="fa-solid fa-ticket"></i> ${t.bookNow}`;
+            btn.innerHTML = '<i class="fa-solid fa-ticket"></i> ' + t.bookNow;
         } else if (text.includes('Live Train Status') || text.includes('लाइव ट्रेन स्टेटस')) {
-            btn.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${t.liveStatus}`;
+            btn.innerHTML = '<i class="fa-solid fa-location-dot"></i> ' + t.liveStatus;
         }
     });
-    
-    // Update search tabs
-    const tabs = document.querySelectorAll('.tab-btn');
-    tabs.forEach(tab => {
-        const text = tab.textContent.trim();
+
+    var tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(function(tab) {
+        var text = tab.textContent.trim();
         if (text.includes('Train') || text.includes('ट्रेन')) {
-            tab.innerHTML = `<i class="fa-solid fa-train-subway"></i> ${t.train}`;
+            tab.innerHTML = '<i class="fa-solid fa-train-subway"></i> ' + t.train;
         } else if (text.includes('Food') || text.includes('खाना')) {
-            tab.innerHTML = `<i class="fa-solid fa-utensils"></i> ${t.food}`;
+            tab.innerHTML = '<i class="fa-solid fa-utensils"></i> ' + t.food;
         } else if (text.includes('Hotel') || text.includes('होटल')) {
-            tab.innerHTML = `<i class="fa-solid fa-hotel"></i> ${t.hotel}`;
+            tab.innerHTML = '<i class="fa-solid fa-hotel"></i> ' + t.hotel;
         }
     });
-    
-    // Update form labels
-    const labels = document.querySelectorAll('.form-group label');
-    labels.forEach(label => {
-        const text = label.textContent.trim();
+
+    var labels = document.querySelectorAll('.form-group label');
+    labels.forEach(function(label) {
+        var text = label.textContent.trim();
         if (text === 'From' || text === 'कहां से') label.textContent = t.from;
         else if (text === 'To' || text === 'कहां तक') label.textContent = t.to;
         else if (text === 'Journey Date' || text === 'यात्रा तिथि') label.textContent = t.journeyDate;
         else if (text === 'Passengers' || text === 'यात्री') label.textContent = t.passengers;
         else if (text === 'Class' || text === 'क्लास') label.textContent = t.class;
     });
-    
-    // Update search buttons
-    const searchBtns = document.querySelectorAll('.btn-search, .btn-block');
-    searchBtns.forEach(btn => {
-        const text = btn.textContent.trim();
+
+    var searchBtns = document.querySelectorAll('.btn-search, .btn-block');
+    searchBtns.forEach(function(btn) {
+        var text = btn.textContent.trim();
         if (text.includes('Search Trains') || text.includes('ट्रेन खोजें')) {
-            btn.innerHTML = `<i class="fa-solid fa-magnifying-glass"></i> ${t.searchTrains}`;
+            btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> ' + t.searchTrains;
         } else if (text.includes('Find Food Options') || text.includes('खाने के विकल्प खोजें')) {
-            btn.innerHTML = `<i class="fa-solid fa-utensils"></i> ${t.findFood}`;
+            btn.innerHTML = '<i class="fa-solid fa-utensils"></i> ' + t.findFood;
         } else if (text.includes('Search Hotels') || text.includes('होटल खोजें')) {
-            btn.innerHTML = `<i class="fa-solid fa-hotel"></i> ${t.searchHotels}`;
+            btn.innerHTML = '<i class="fa-solid fa-hotel"></i> ' + t.searchHotels;
         }
     });
-    
-    // Update stats
-    const statLabels = document.querySelectorAll('.stat-label');
-    const statTexts = [t.dailyTrains, t.happyPassengers, t.onTime, t.digitalTicketing];
-    statLabels.forEach((label, index) => {
+
+    var statLabels = document.querySelectorAll('.stat-label');
+    var statTexts = [t.dailyTrains, t.happyPassengers, t.onTime, t.digitalTicketing];
+    statLabels.forEach(function(label, index) {
         if (index < statTexts.length) label.textContent = statTexts[index];
     });
-    
-    // Update features section heading
-    const eyebrow = document.querySelector('.eyebrow');
+
+    var eyebrow = document.querySelector('.eyebrow');
     if (eyebrow) eyebrow.textContent = t.whyChoose;
-    
-    const featuresHeading = document.querySelector('.section-heading h2');
+
+    var featuresHeading = document.querySelector('.section-heading h2');
     if (featuresHeading) featuresHeading.textContent = t.featuresHeading;
-    
-    // Update feature cards
-    const featureTitles = document.querySelectorAll('.feature-card h3');
-    const featureDescs = document.querySelectorAll('.feature-card p');
-    const featureTitleTexts = [t.easyBooking, t.liveTracking, t.foodDelivery, t.digitalTicket, t.support, t.securePayments];
-    const featureDescTexts = [t.easyBookingDesc, t.liveTrackingDesc, t.foodDeliveryDesc, t.digitalTicketDesc, t.supportDesc, t.securePaymentsDesc];
-    
-    featureTitles.forEach((title, index) => {
+
+    var featureTitles = document.querySelectorAll('.feature-card h3');
+    var featureDescs = document.querySelectorAll('.feature-card p');
+    var featureTitleTexts = [t.easyBooking, t.liveTracking, t.foodDelivery, t.digitalTicket, t.support, t.securePayments];
+    var featureDescTexts = [t.easyBookingDesc, t.liveTrackingDesc, t.foodDeliveryDesc, t.digitalTicketDesc, t.supportDesc, t.securePaymentsDesc];
+
+    featureTitles.forEach(function(title, index) {
         if (index < featureTitleTexts.length) title.textContent = featureTitleTexts[index];
     });
-    
-    featureDescs.forEach((desc, index) => {
+
+    featureDescs.forEach(function(desc, index) {
         if (index < featureDescTexts.length) desc.textContent = featureDescTexts[index];
     });
-    
-    // Update footer
-    const footerHeadings = document.querySelectorAll('.footer-col h4');
+
+    var footerHeadings = document.querySelectorAll('.footer-col h4');
     if (footerHeadings.length >= 3) {
         footerHeadings[0].textContent = t.quickLinks;
         footerHeadings[1].textContent = t.servicesFooter;
         footerHeadings[2].textContent = t.supportFooter;
     }
-    
-    const footerLinks = document.querySelectorAll('.footer-col a');
-    footerLinks.forEach(link => {
-        const text = link.textContent.trim();
+
+    var footerLinks = document.querySelectorAll('.footer-col a');
+    footerLinks.forEach(function(link) {
+        var text = link.textContent.trim();
         if (text === 'Home' || text === 'होम') link.textContent = t.home;
         else if (text === 'Book Ticket' || text === 'टिकट बुक करें') link.textContent = t.bookTicket;
         else if (text === 'Services' || text === 'सेवाएं') link.textContent = t.services;
@@ -550,48 +585,40 @@ function updateLanguage(lang) {
         else if (text === 'Contact Us' || text === 'संपर्क करें') link.textContent = t.contactUs;
         else if (text === 'Feedback' || text === 'प्रतिक्रिया') link.textContent = t.feedback;
     });
-    
-    const footerBrand = document.querySelector('.footer-brand p');
+
+    var footerBrand = document.querySelector('.footer-brand p');
     if (footerBrand) footerBrand.textContent = t.footerText;
-    
-    const footerBottom = document.querySelector('.footer-bottom p');
+
+    var footerBottom = document.querySelector('.footer-bottom p');
     if (footerBottom) footerBottom.textContent = t.copyright;
-    
-    // Update language button text
-    const langBtn = document.querySelector('.icon-btn .lang-label');
+
+    var langBtn = document.querySelector('.icon-btn .lang-label');
     if (langBtn) {
         langBtn.textContent = lang === 'en' ? 'EN' : 'HI';
     }
-    
-    // Store preference
+
     localStorage.setItem('preferredLanguage', lang);
 }
 
-// Language toggle button
 document.addEventListener('DOMContentLoaded', function() {
-    const langBtn = document.getElementById('langToggle');
-    
+    var langBtn = document.getElementById('langToggle');
+
     if (langBtn) {
-        // Check for saved preference
-        const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+        var savedLang = localStorage.getItem('preferredLanguage') || 'en';
         currentLanguage = savedLang;
-        
-        // Update language button label
-        const langLabel = langBtn.querySelector('.lang-label');
+
+        var langLabel = langBtn.querySelector('.lang-label');
         if (langLabel) {
             langLabel.textContent = savedLang === 'en' ? 'EN' : 'HI';
         }
-        
-        // Apply saved language
+
         updateLanguage(savedLang);
-        
-        // Toggle on click
+
         langBtn.addEventListener('click', function() {
-            const newLang = currentLanguage === 'en' ? 'hi' : 'en';
+            var newLang = currentLanguage === 'en' ? 'hi' : 'en';
             updateLanguage(newLang);
-            
-            // Update button label
-            const label = this.querySelector('.lang-label');
+
+            var label = this.querySelector('.lang-label');
             if (label) {
                 label.textContent = newLang === 'en' ? 'EN' : 'HI';
             }
